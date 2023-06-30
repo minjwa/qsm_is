@@ -2,6 +2,8 @@
 // Include config file
 require_once "config.php";
 
+//testing commit
+
 // Define variables and initialize with empty values
 $email = $username = $password = $confirm_password = $role = "";
 $roles = [];
