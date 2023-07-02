@@ -160,13 +160,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result_roles = $link->query($sql_roles);
 
         while ($row = $result_roles->fetch_assoc()) {
-            # code...
-            $roles[] = [
+            if($row["name"] == "Student"){
+                array_push($roles, [
+                    "id" => $row["id"],
+                    "code" => $row["code"],
+                    "name" => "User",    
+                ]);
+                continue;
+            }
+            if($row["name"] === "Company"){
+                array_push($roles, [
+                    "id" => $row["id"],
+                    "code" => $row["code"],
+                    "name" => "Admin",    
+                ]);
+                continue;
+            }
+            if($row["name"] === "Supervisor"){
+                continue;
+            }
+
+            array_push($roles, [
                 "id" => $row["id"],
                 "code" => $row["code"],
                 "name" => $row["name"],
-            ];
+            ]);
         }
+
     }
 }
 ?>
@@ -200,6 +220,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+    <!-- <?php 
+        // echo "<pre>";
+        // print_r($roles);
+        // echo "</pre>";
+    ?> -->
     <div class="container-fluid">
     <div class="row">
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="col-12 mt-5" method="post">
@@ -208,7 +233,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="card col-6" style="border-style: solid;background-color: hsla(40, 42%, 62%, 0.7); border-color: #000000; border-radius: 25px;border-width:2px;">
     <div class="card-body">
     <div class="d-flex justify-content-center">
-            <img src="img/UITM.png" alt="uitm_logo" class="mx-auto d-block" style="height: 160px;">
+            <img src="img/uitm_logo.png" alt="uitm_logo" class="mx-auto d-block" style="height: 160px;">
     </div>
                            
     <div class="form-group row mt-5">
@@ -245,7 +270,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                            
     <div class="row">
         <label class="col-sm-3 col-form-label"><b>Role</b></label>
-    <div class="col-sm-9 column" id="container_roles">
+    <div class="col-sm-9 column mb-4" id="container_roles">
         <?php foreach ($roles as $key => $value_role) {
             if ($value_role['code'] !== 'admin') { ?>
                 <div class="col-sm-4 form-check">
