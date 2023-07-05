@@ -7,8 +7,8 @@ require 'config.php';
 // Initialize variable 
 $locations = [];
 $jobs = [];
-// $description = [];
-$name = $description = $location_id = '';
+$descriptions = [];
+$name = $location_id = '';
 $name_err = $description_err = $location_id_err = '';
 
 // Check if the user is logged in, if not then redirect him to login page
@@ -45,8 +45,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         $sql_descriptions = "SELECT * FROM description";
         $result_descriptions = $link->query($sql_descriptions);
 
-        while($row = $result_locations->fetch_assoc()){
-            $description[] = [
+        while($row = $result_descriptions->fetch_assoc()){
+            $descriptions[] = [
                 "id" => $row["id"],
                 "name" => $row["name"],
             ];
@@ -248,7 +248,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                             <label for="name">Description</label>
                                                             <select name="description" id="description_edit" class="form-control" row="3"><?php echo $job['description'] ?>
                                                             <option value="">-- Please Select --</option>
-                                                                <?php foreach ($description as $description) { ?>
+                                                                <?php foreach ($descriptions as $description) { ?>
                                                             <option value="<?php echo $description['id'] ?>" <?php if ($description['id'] == $job['location']['id']) {
                                                                       echo "selected";
                                                                } ?>><?php echo $description['name'] ?></option>
@@ -330,7 +330,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <label for="name">Description</label>
                         <select name="description" id="description" class="form-control <?php echo (!empty($description_err)) ? 'is-invalid' : ''; ?>">
                         <option value="">-- Please Select --</option>
-                        <?php foreach ($description as $description) { ?>
+                        <?php foreach ($descriptions as $description) { ?>
                                     <option value="<?php echo $description['id'] ?>"><?php echo $description['name'] ?></option>
                             <?php } ?>
                         </select>

@@ -132,6 +132,21 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `role_id`, `resume`,
 -- Indexes for dumped tables
 --
 
+DROP TABLE IF EXISTS `description`;
+CREATE TABLE IF NOT EXISTS `description` (
+  `id` int NOT NULL,
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `description`
+--
+
+INSERT INTO `description` (`id`, `name`) VALUES
+(1, 'Active'),
+(2, 'Inactive');
+
 --
 -- Indexes for table `applications`
 --
