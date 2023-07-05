@@ -5,6 +5,13 @@ require_once "config.php";
 // Initialize the session
 session_start();
 
+// $UserType = (object) [
+//     'username' => 'John',
+//     'type' => 'company'
+// ];
+$UserType = null;
+
+
 // Check if the user is logged in, if not then redirect him to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
@@ -13,6 +20,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 if ($link !== false) {
     if ($_SESSION['role']['code'] == 'company') {
+        $UserType = (object)[
+            'username' => $_SESSION["username"],
+            'type' => $_SESSION["role"]['code']
+        ];
+
         $sql_applications = "SELECT * FROM applications WHERE status = 1";
         $result_applications = $link->query($sql_applications);
 
@@ -52,6 +64,10 @@ if ($link !== false) {
             }
         }
     } else if ($_SESSION['role']['code'] == 'student') {
+        $UserType = (object)[
+            'username' => $_SESSION["username"],
+            'type' => $_SESSION["role"]['code']
+        ];
 
         $sql_applications = "SELECT * FROM applications WHERE result = 'accept' OR result = 'reject'";
         $result_applications = $link->query($sql_applications);
@@ -205,7 +221,9 @@ if ($link !== false) {
                 <li class="mt-2">
     <div class="card">
             <a href="booking_training.php" class="card-body btn btn-outline-warning">
-                 My Calendar
+                 <!-- My Calendar -->
+                 <?php if($UserType->type == 'company') echo "Settings"?>
+                 <?php if($UserType->type == 'student') echo "My Calendar"?>
             </a>
     </div>
                </li>
