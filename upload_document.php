@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 
-$target_dir = "uploads/document/";
+$target_dir = "uploads/resume/";
 $target_file = $target_dir . basename($_FILES["document"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

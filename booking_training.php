@@ -148,33 +148,47 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             </a>
                         </div>
                     </li>
-                    <?php if ($_SESSION['role']['code'] !== 'company' || $_SESSION['role']['code'] !== 'admin') { ?>
+                    <!-- <?php if ($_SESSION['role']['code'] !== 'company' || $_SESSION['role']['code'] !== 'admin') { ?>
                         <li class="mt-2">
-                        <div class="card">
-                                <a href="booking_training.php" class="card-body btn btn-outline-warning">
-                                    Setting
-                                </a>
-                        </div>
+                            <div class="card">
+                                    <a href="booking_training.php" class="card-body btn btn-warning">
+                                        My Calendar
+                                    </a>
+                            </div>
                         </li>
                    
-                    <?php } ?>
-                    <?php if ($_SESSION['role']['code'] !== 'company') { ?>
-
-                    
-                    <?php } ?>
-                    <?php if ($_SESSION['role']['code'] === 'admin') { ?>
+                    <?php } ?> -->
+                    <?php if ($_SESSION['role']['code'] === 'student') { ?>
                         <li class="mt-2">
-                        <div class="card">
-                                <a href="users_page.php" class="card-body btn btn-outline-warning">
-                                    Users
-                                </a>
-                        </div>
-                        </li>
-                    
-                    
-                        </div>
+                            <div class="card">
+                                    <a href="booking_training.php" class="card-body btn btn-warning">
+                                        My Calendar
+                                    </a>
+                            </div>
                         </li>
                     <?php } ?>
+                    <?php if ($_SESSION['role']['code'] === 'company') { ?>
+                        <li class="mt-2">
+                            <div class="card">
+                                    <a href="users_page.php" class="card-body btn btn-warning">
+                                        Settings
+                                    </a>
+                            </div>
+                        </li>
+                    <?php } ?>
+                    <!-- <?php if ($_SESSION['role']['code'] === 'admin') { ?>
+                        <li class="mt-2">
+                            <div class="card">
+                                    <a href="users_page.php" class="card-body btn btn-outline-warning">
+                                        Users
+                                    </a>
+                            </div>
+                        </li>
+                    
+                    
+                        </div>
+                        </li>
+                    <?php } ?> -->
                 </ul>
             </div>
             <div class="col-10">

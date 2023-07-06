@@ -115,6 +115,7 @@ if ($link !== false) {
 
         while ($row = $result_current_user->fetch_assoc()) {
             # code...
+            // error document is not there
             $user["document"] = $row['name'];
         }
 
@@ -149,7 +150,6 @@ if ($link !== false) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
@@ -265,9 +265,11 @@ if ($link !== false) {
     <div class="d-flex justify-content-center" style="font-size: 40px;">
                  Welcome to <?php echo $_SESSION["role"]['code'] ?> page
     </div>
+    <div class="mt-5 text-center " style="font-size: 2rem;">
+        Applications
+    </div>
     <?php if ($_SESSION['role']['code'] == 'company') { ?>
         <div class="card-body">
-            <table class="table table-bordered">
             <table class="table">
                 <thead>
                     <tr>
@@ -344,7 +346,7 @@ if ($link !== false) {
                 </tr>
                     <?php } ?>
             </tbody>
-            </table>
+        </table>
     </div>
     </div>
     </div>
@@ -361,47 +363,47 @@ if ($link !== false) {
     </div>
 
     <div class="card-body text-center">
-                    <?php if ($user["document"] == null) { ?>
+        <?php if ($user["document"] == null) { ?>
             <form action="upload_document.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
-    <div class="row">
-    <div class="col-md-10">
-            <input type="file" name="document" class="form-control">
-    </div>
+                <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
+                <div class="row">
+                    <div class="col-md-10">
+                            <input type="file" name="document" class="form-control">
+                    </div>
 
-    <div class="col-md-2">
-            <button type="submit" class="btn btn-warning">Upload</button>
-    </div>
-    </div>
+                    <div class="col-md-2">
+                            <button type="submit" class="btn btn-warning">Upload</button>
+                    </div>
+                </div>
             </form>
-                    <?php } else{ ?>
-    <div class="col-md-12">
-        <table class="table">
+        <?php } else{ ?>
+            <div class="col-md-12">
+                <table class="table">
 
 
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
 
-            <tbody>
-                <tr>
-                    <td>1.</td>
-                    <td>document</td>
-                    <td>
-            <button type="button" onclick="deleteDocument('#formDocument')" class="btn btn-primary">Delete</button>
-            <form action="update_document.php" id="formDocument" method="POST">
-            <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
-            <input type="hidden" name="file_dir" value="<?php echo $user['document']; ?>">
-            </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                    <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>document</td>
+                            <td>
+                                <button type="button" onclick="deleteDocument('#formDocument')" class="btn btn-primary">Delete</button>
+                                <form action="update_document.php" id="formDocument" method="POST">
+                                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
+                                    <input type="hidden" name="file_dir" value="<?php echo $user['document']; ?>">
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
          <?php } ?>           
     </div>
     </div>
