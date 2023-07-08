@@ -39,10 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (move_uploaded_file($_FILES["document"]["tmp_name"], $target_file)) {
             echo "The file " . htmlspecialchars(basename($_FILES["document"]["name"])) . " has been uploaded.";
 
-            $sql_document = "UPDATE users SET document='" . $target_file . "' WHERE id=" . $user_id;
-
+            // $sql_document = "UPDATE users SET document='" . $target_file . "' WHERE id=" . $user_id;
+            $sql_document = "INSERT INTO document" . "VALUES(". "$user_id" . "," . "$target_file";
             if ($link->query($sql_document) === TRUE) {
-                echo "existing record update successfully";
+                // echo "existing record update successfully";
+                echo "existing record insert successfully";
             } else {
                 echo "Error: " . $sql_document . "<br>" . $link->error;
             }

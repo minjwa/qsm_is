@@ -203,7 +203,16 @@ if ($link !== false) {
             <a class="dropdown-item" href="logout.php">Logout</a>
     </div>
     </div>
-            <span class="text-right"><b><?php echo $_SESSION["role"]["name"] ?></b></span>
+            <span class="text-right">
+                <b>
+                    <?php if($_SESSION["role"]["name"] == "Student"){?>
+                        User
+                    <?php }?>
+                    <?php if($_SESSION["role"]["name"] == "Company"){?>
+                        Admin
+                    <?php }?>
+                </b>
+            </span>
     </div>
     </div>
 
@@ -262,9 +271,6 @@ if ($link !== false) {
             </h1>
     </div>
 
-    <div class="d-flex justify-content-center" style="font-size: 40px;">
-                 Welcome to <?php echo $_SESSION["role"]['code'] ?> page
-    </div>
     <div class="mt-5 text-center " style="font-size: 2rem;">
         Applications
     </div>
@@ -452,7 +458,7 @@ if ($link !== false) {
 
     </div>
     </div>
-    </div>
+    </div>`
     </div>
                     <?php  if ($_SESSION['role']['code'] == 'company') { ?>
    

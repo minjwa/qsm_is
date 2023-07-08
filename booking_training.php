@@ -38,7 +38,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 "id" => $row["id"],
                 "name" => $row["name"],
                 "location_id" => $row['location_id'],
-                "description" => $row['description']
+                "description" => $row['description'],
+                "date_booking" => $row['date_booking'],
             ];
         }
 
@@ -134,7 +135,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <a class="dropdown-item" href="logout.php">Logout</a>
     </div>
     </div>
-                <span class="text-right"><b><?php echo $_SESSION["role"]["name"] ?></b></span>
+                <span class="text-right">
+                    <b>
+                        <?php if($_SESSION["role"]["name"] == "Student"){?>
+                            User
+                        <?php }?>
+                        <?php if($_SESSION["role"]["name"] == "Company"){?>
+                            Admin
+                        <?php }?>
+                    </b>
+                </span>
     </div>
     </div>
 
@@ -218,6 +228,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                         <th class="col-3">Name</th>
                                         <th class="col-4">Description</th>
                                         <th class="col-3">Location</th>
+                                        <th>Booking Date</th>
                                         <th class="col-1">Action</th>
                                     </tr>
                                 </thead>
@@ -231,6 +242,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                 <td><?php echo $job['name'] ?></td>
                                                 <td><?php echo $job['description'] ?></td>
                                                 <td><?php echo $job['location']['name'] ?></td>
+                                                <td>
+                                                    <?php if($_SESSION['role']['code'] == 'company'){
+                                                        echo $job['date_booking'];
+                                                    }
+                                                    ?>
+                                                    <input id="booking-date" type="date" name="booking-date">
+                                                </td>
                                                 <td>
                                                         
                                     <?php if ($_SESSION['role']['code'] == 'company') { ?>
