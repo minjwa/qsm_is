@@ -40,22 +40,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "The file " . htmlspecialchars(basename($_FILES["document"]["name"])) . " has been uploaded.";
 
             // $sql_document = "UPDATE users SET document='" . $target_file . "' WHERE id=" . $user_id;
-            $sql_document = "INSERT INTO document" . "VALUES(". "$user_id" . "," . "$target_file";
-            if ($link->query($sql_document) === TRUE) {
-                // echo "existing record update successfully";
-                echo "existing record insert successfully";
-            } else {
-                echo "Error: " . $sql_document . "<br>" . $link->error;
+
+            // if ($link->query($sql_document) === TRUE) {
+            //     // echo "existing record update successfully";
+            //     echo "existing record insert successfully";
+            // } else {
+            //     echo "Error: " . $sql_document . "<br>" . $link->error;
+            // }
+
+            // $link->close();
+
+            $sql = "INSERT INTO document (id, user_id, name) VALUES (NULL, ?, ?)";
+
+            if($statement = mysqli_prepare($link, $sql)){
+                mysqli_stmt_bind_param($statement, "ss", $user_id, $target_file);
+
+                if(mysqli_stmt_execute($statement)){
+                    echo "existing record insert successfully";
+                }else{
+                    echo "Error insert document data";
+                }
             }
 
-            $link->close();
+            mysqli_stmt_close($statement);
+
         } else {
             echo "Sorry, there was an error uploading your file.";
         }
     }
 }
 
-header("location: home.php");
+// header("location: home.php");
 
 exit;
 ?>
