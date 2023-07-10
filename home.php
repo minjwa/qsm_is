@@ -108,15 +108,28 @@ if ($link !== false) {
             }
         }
 
-        $sql_current_user = "SELECT * FROM users WHERE id = " . $_SESSION['id'] . " LIMIT 1";
-        $result_current_user = $link->query($sql_current_user);
+        // $sql_current_user = "SELECT * FROM users WHERE id = " . $_SESSION['id'] . " LIMIT 1";
+        // $result_current_user = $link->query($sql_current_user);
+
+        // $user = [];
+
+        // while ($row = $result_current_user->fetch_assoc()) {
+        //     # code...
+        //     // error document is not there
+        //     $user["document"] = $row['name'];
+        // }
+
+        $sql_document_current_user = "SELECT * FROM document WHERE user_id = " . $_SESSION['id'] . " LIMIT 1";
+        $result_document_current_user = $link->query($sql_document_current_user);
 
         $user = [];
 
-        while ($row = $result_current_user->fetch_assoc()) {
+        while ($row = $result_document_current_user->fetch_assoc()) {
             # code...
             // error document is not there
-            $user["document"] = $row['name'];
+            $user["document"] = [
+                "name" => $row['name'], 
+            ];
         }
 
         $sql_current_user_logbook = "SELECT * FROM logbooks WHERE user_id = " . $_SESSION['id'] . " LIMIT 1";
@@ -369,7 +382,7 @@ if ($link !== false) {
     </div>
 
     <div class="card-body text-center">
-        <?php if ($user["document"] == null) { ?>
+        <?php if (sizeof($user) == 0) { ?>
             <form action="upload_document.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
                 <div class="row">
@@ -397,15 +410,18 @@ if ($link !== false) {
 
                     <tbody>
                         <tr>
-                            <td>1.</td>
-                            <td>document</td>
-                            <td>
-                                <button type="button" onclick="deleteDocument('#formDocument')" class="btn btn-primary">Delete</button>
-                                <form action="update_document.php" id="formDocument" method="POST">
-                                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
-                                    <input type="hidden" name="file_dir" value="<?php echo $user['document']; ?>">
-                                </form>
-                            </td>
+                            <?php foreach($user as $key => $item) {?>
+                                <td>1.</td>
+                                <td> <?php echo $item['name']; ?> </td>
+                                <td>
+                                    <button type="button" onclick="deleteDocument('#formDocument')" class="btn btn-primary">Delete</button>
+                                    <form action="update_document.php" id="formDocument" method="POST">
+                                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
+                                        <input type="hidden" name="file_dir" value="<?php echo $item['name']; ?>">
+                                        <!-- <input type="hidden" name="file_dir" value="<?php echo $user['document']; ?>"> -->
+                                    </form>
+                                </td>
+                            <?php } ?>
                         </tr>
                     </tbody>
                 </table>
