@@ -17,6 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
-header("location: internship_page.php");
+header("location: booking_training.php");
 exit;
 ?>

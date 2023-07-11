@@ -18,6 +18,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 } else {
 
     if ($link !== false) {
+
+        if(isset($_POST['job_id']) && isset($_POST['user_id']) && isset($_POST['status']) && isset($_POST['date_booking']) ){
+            $sql_jobs = "UPDATE jobs SET date_booking = '" . trim($_POST['date_booking']) . "' where id = " . trim($_POST['job_id']);
+
+            if ($link->query($sql_jobs) === TRUE) {
+                echo "existing record update successfully";
+            } else {
+                echo "Error: " . $sql_jobs . "<br>" . $link->error;
+            }
+        }
+
         $sql_locations = "SELECT * FROM locations";
         $result_locations = $link->query($sql_locations);
 
@@ -228,7 +239,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                         <th class="col-3">Name</th>
                                         <th class="col-4">Description</th>
                                         <th class="col-3">Location</th>
-                                        <th>Booking Date</th>
                                         <th class="col-1">Action</th>
                                     </tr>
                                 </thead>
@@ -238,17 +248,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                         $x = 0;
                                         foreach ($jobs as $key => $job) { ?>
                                             <tr>
+                                                <!-- <?php echo $_SESSION['id']?> -->
                                                 <td><?php echo ++$x ?>.</td>
                                                 <td><?php echo $job['name'] ?></td>
                                                 <td><?php echo $job['description'] ?></td>
                                                 <td><?php echo $job['location']['name'] ?></td>
-                                                <td>
-                                                    <?php if($_SESSION['role']['code'] == 'company'){
-                                                        echo $job['date_booking'];
-                                                    }
-                                                    ?>
-                                                    <input id="booking-date" type="date" name="booking-date">
-                                                </td>
                                                 <td>
                                                         
                                     <?php if ($_SESSION['role']['code'] == 'company') { ?>
@@ -314,12 +318,22 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                         <?php } ?>
 
                                                         <?php if ($_SESSION['role']['code'] == 'student') { ?>
-                                                            <button type="button" class="btn btn-success" onclick="applyAlert('#formbookingtraining<?php echo $job['id'] ?>')">Book Training</button>
                                                             <form action="booking_training.php" id="formbookingtraining<?php echo $job['id'] ?>" method="POST">
                                                                 <input type="hidden" name="job_id" value="<?php echo $job['id'] ?>">
                                                                 <input type="hidden" name="user_id" value="<?php echo $_SESSION["id"] ?>">
                                                                 <input type="hidden" name="status" value="1">
+                                                                <!-- <input type="hidden" name="date_booking" value="2021-12-31"> -->
+
+                                                                <?php if($job['date_booking']){ ?>
+                                                                    <label for="date_booking">Booking Date</label>
+                                                                    <input id="date_booking" type="date" name="date_booking" value="<?php echo $job['date_booking']?>">
+                                                                <?php }?>
+                                                                <?php if(!$job['date_booking']){ ?>
+                                                                    <label for="date_booking">Booking Date</label>
+                                                                    <input id="date_booking" type="date" name="date_booking">
+                                                                <?php }?>
                                                             </form>
+                                                            <button type="button" class="btn btn-success mt-4" onclick="applyAlert('#formbookingtraining<?php echo $job['id'] ?>')">Book Training</button>
                                                         <?php } ?>
                                                 </td>
                                                 </tr>

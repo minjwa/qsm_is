@@ -40,6 +40,7 @@ if ($link !== false) {
             ];
         }
 
+
         foreach ($applications as $key => $application) {
             $sql_application = "SELECT * FROM jobs WHERE id = " . $application['job_id'];
             $result_application = $link->query($sql_application);
@@ -48,6 +49,12 @@ if ($link !== false) {
                 $applications[$key]["job"] = [
                     'name' => $row['name'],
                     'description' => $row['description']
+                ];
+
+                $applications[$key]["job"] = [
+                    'name' => $row['name'],
+                    'description' => $row['description'],
+                    'date_booking' => $row['date_booking'],
                 ];
             }
         }
@@ -295,6 +302,7 @@ if ($link !== false) {
                         <th>#</th>
                         <th>Student email</th>
                         <th>Company Name</th>
+                        <th>Date Booking</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -304,10 +312,13 @@ if ($link !== false) {
                     <tr>
                         <td><?php echo ++$x; ?>.</td>
                         <td>
-                   <?php echo $application['user']['email']; ?>
+                            <?php echo $application['user']['email']; ?>
                         </td>
                         <td>
-                   <?php echo $application['job']['name']; ?>
+                            <?php echo $application['job']['name']; ?>
+                        </td>
+                        <td>
+                            <?php echo $application['job']['date_booking']; ?>
                         </td>
                         <td>
                     <?php if ($application['result'] == null) { ?>
@@ -326,111 +337,111 @@ if ($link !== false) {
             </table>
         </div>
     <?php } ?>
-                <?php if ($_SESSION['role']['code'] == 'student') { ?>
-    <div class="d-flex justify-content-center mt-4">
-    <div class="col-md-12">
-    <div class="card">
-    <div class="card-header">
-             <h2>
-                 RESULT
-             </h2>
-    </div>
+    <?php if ($_SESSION['role']['code'] == 'student') { ?>
+        <div class="d-flex justify-content-center mt-4">
+        <div class="col-md-12">
+        <div class="card">
+        <div class="card-header">
+                <h2>
+                    RESULT
+                </h2>
+        </div>
 
-    <div class="card-body text-center">
-    <div class="col-md-12">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>LOCATION</th>
-                    <th>JOB APPLICATION</th>
-                    <th>RESULT</th>
-                </tr>
-            </thead>
+        <div class="card-body text-center">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>LOCATION</th>
+                        <th>JOB APPLICATION</th>
+                        <th>RESULT</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <?php $x = 0; ?>
-                <?php foreach ($applications_accept as $key => $application_accept) { ?>
-                <tr>
-                <td><?php echo ++$x; ?>.</td>
-                <td>
-                    <?php echo $application_accept['location']['name']; ?>
-                </td>
-                <td>
-                    <?php echo $application_accept['job']['name']; ?>
-                </td>
-                <td>
-                    <?php echo $application_accept['result']; ?>
-                </td>
-                </tr>
-                    <?php } ?>
-            </tbody>
-        </table>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
+                <tbody>
+                    <?php $x = 0; ?>
+                    <?php foreach ($applications_accept as $key => $application_accept) { ?>
+                    <tr>
+                    <td><?php echo ++$x; ?>.</td>
+                    <td>
+                        <?php echo $application_accept['location']['name']; ?>
+                    </td>
+                    <td>
+                        <?php echo $application_accept['job']['name']; ?>
+                    </td>
+                    <td>
+                        <?php echo $application_accept['result']; ?>
+                    </td>
+                    </tr>
+                        <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
 
-    <div class="d-flex justify-content-center mt-2">
-    <div class="col-md-12">
-    <div class="card">
-    <div class="card-header">
-            <h2>
-                UPLOAD DOCUMENT
-            </h2>
-    </div>
+        <div class="d-flex justify-content-center mt-2">
+        <div class="col-md-12">
+        <div class="card">
+        <div class="card-header">
+                <h2>
+                    UPLOAD DOCUMENT
+                </h2>
+        </div>
 
-    <div class="card-body text-center">
-        <?php if (sizeof($user) == 0) { ?>
-            <form action="upload_document.php" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
-                <div class="row">
-                    <div class="col-md-10">
-                            <input type="file" name="document" class="form-control">
+        <div class="card-body text-center">
+            <?php if (sizeof($user) == 0) { ?>
+                <form action="upload_document.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
+                    <div class="row">
+                        <div class="col-md-10">
+                                <input type="file" name="document" class="form-control">
+                        </div>
+
+                        <div class="col-md-2">
+                                <button type="submit" class="btn btn-warning">Upload</button>
+                        </div>
                     </div>
+                </form>
+            <?php } else{ ?>
+                <div class="col-md-12">
+                    <table class="table">
 
-                    <div class="col-md-2">
-                            <button type="submit" class="btn btn-warning">Upload</button>
-                    </div>
+
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <?php foreach($user as $key => $item) {?>
+                                    <td>1.</td>
+                                    <td> <?php echo $item['name']; ?> </td>
+                                    <td>
+                                        <button type="button" onclick="deleteDocument('#formDocument')" class="btn btn-primary">Delete</button>
+                                        <form action="update_document.php" id="formDocument" method="POST">
+                                            <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
+                                            <input type="hidden" name="file_dir" value="<?php echo $item['name']; ?>">
+                                            <!-- <input type="hidden" name="file_dir" value="<?php echo $user['document']; ?>"> -->
+                                        </form>
+                                    </td>
+                                <?php } ?>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </form>
-        <?php } else{ ?>
-            <div class="col-md-12">
-                <table class="table">
-
-
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <?php foreach($user as $key => $item) {?>
-                                <td>1.</td>
-                                <td> <?php echo $item['name']; ?> </td>
-                                <td>
-                                    <button type="button" onclick="deleteDocument('#formDocument')" class="btn btn-primary">Delete</button>
-                                    <form action="update_document.php" id="formDocument" method="POST">
-                                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
-                                        <input type="hidden" name="file_dir" value="<?php echo $item['name']; ?>">
-                                        <!-- <input type="hidden" name="file_dir" value="<?php echo $user['document']; ?>"> -->
-                                    </form>
-                                </td>
-                            <?php } ?>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-         <?php } ?>           
-    </div>
-    </div>
-    </div>
-    </div>
+            <?php } ?>           
+        </div>
+        </div>
+        </div>
+        </div>
 
     <div class="d-flex justify-content-center mt-2">
     <div class="col-md-12">

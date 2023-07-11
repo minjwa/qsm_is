@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 06, 2023 at 03:49 PM
+-- Generation Time: Jul 11, 2023 at 01:57 PM
 -- Server version: 8.0.25
 -- PHP Version: 7.3.21
 
@@ -70,6 +70,28 @@ INSERT INTO `description` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `document`
+--
+
+DROP TABLE IF EXISTS `document`;
+CREATE TABLE IF NOT EXISTS `document` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `name` varchar(500) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_foreign_key_user_document` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `document`
+--
+
+INSERT INTO `document` (`id`, `user_id`, `name`) VALUES
+(7, 13, 'uploads/resume/RESUME FITRIE.pdf');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `jobs`
 --
 
@@ -78,17 +100,19 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `location_id` int NOT NULL,
-  `description` longtext,
+  `description` int DEFAULT NULL,
+  `date_booking` date DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `location_id` (`location_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `location_id` (`location_id`),
+  KEY `description` (`description`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `jobs`
 --
 
-INSERT INTO `jobs` (`id`, `name`, `location_id`, `description`) VALUES
-(15, 'Company 1', 1, '1');
+INSERT INTO `jobs` (`id`, `name`, `location_id`, `description`, `date_booking`) VALUES
+(15, 'Company 1', 1, 1, '2023-07-11');
 
 -- --------------------------------------------------------
 
@@ -197,10 +221,17 @@ ALTER TABLE `applications`
   ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
+-- Constraints for table `document`
+--
+ALTER TABLE `document`
+  ADD CONSTRAINT `fk_foreign_key_user_document` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
 -- Constraints for table `jobs`
 --
 ALTER TABLE `jobs`
-  ADD CONSTRAINT `jobs_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`);
+  ADD CONSTRAINT `jobs_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`),
+  ADD CONSTRAINT `jobs_ibfk_2` FOREIGN KEY (`description`) REFERENCES `description` (`id`);
 
 --
 -- Constraints for table `logbooks`
