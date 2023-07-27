@@ -102,7 +102,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font: 18px sans-serif;
+            font-size:14px;
+            background:url('img/bg.jpg')no-repeat;
+            background-size:cover;
         }
 
         .wrapper {
@@ -117,16 +119,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
 
-    <style>
-
-       body { 
-        background: url('img/bw.jpg') no-repeat; 
-        background-size: cover;
-        }
-
-
-    </style>
-
 </head>
 
 <body>
@@ -137,55 +129,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo '<div class="alert alert-danger">' . $login_err . '</div>';
             }
             ?>
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="col-12 mt-5" method="post">
-                 <div class="d-flex justify-content-center">
-                 <div class="card col-6" style="border-style: solid; background-color: hsla(40, 42%, 62%, 0.7) ; border-color: #000000; border-radius:25px; border-width:2px;">
-                 <div class="card-body">
-                 <div class="d-flex justify-content-center">
-                     <img src="img/hr2eazy.png" alt="hr2eazy_logo" class="mx-auto d-block" style="height: 100px;">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="col-12" method="post">
+                 <div class="d-flex" style="border:0px solid blue;">
+                 <div class="card" style="width:400px;border-left:5px solid #dda314;border-right:5px solid #989896;border-bottom:5px solid #989896;background-color:#fff;border-radius:20px;margin-left:100px;margin-top:3%;">
+                 <div class="card-body" style="border:0px solid red;">
+                 <div class="d-flex justify-content-center" >
+                     <img src="img/logo.png" alt="hr2eazy_logo" class="mx-auto d-block" style="width:48%;">
                  </div>
 
-                 <div class="form-group row mt-5">
-                     <label class="col-sm-2 col-form-label"><b>Username</b></label>
-                 <div class="col-sm-10">
-                     <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+                 <div class="form-group row mt-4">
+                     <label class="form-label" style="border:0px solid blue;width:85%;margin:auto;margin-bottom:10px;"><b>Username:</b></label><br>
+                 <div style="border:0px solid red;width:85%;margin:auto;">
+                     <input style="border-radius: 25px;box-shadow:5px 5px 0px 0px #384182;height:100%;" type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                      <span class="invalid-feedback"><?php echo $username_err; ?></span>
                  </div>
                  </div>
 
                  <div class="form-group row">
-                     <label class="col-sm-2 col-form-label"><b>Password</b></label>
-                 <div class="col-sm-10">
-                     <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+                     <label class="form-label" style="border:0px solid blue;width:85%;margin:auto;margin-bottom:10px;"><b>Password:</b></label>
+                 <div style="border:0px solid red;width:85%;margin:auto;">
+                     <input style="border-radius: 25px;box-shadow:5px 5px 0px 0px #384182;height:100%;" type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
                      <span class="invalid-feedback"><?php echo $password_err; ?></span>
                  </div>
                  </div>
                             
                  <div class="form-group row mt-4">
-                 <div class="col-sm-2"></div>
-                 <div class="col-sm-10">
-                     <input type="submit" class="btn px-4" style="color: #fff;background-color: #422B69; border-color: #422B69; border-radius: 28px;" value="Login">
+                 <div style="margin:auto;width:85%;">
+                     <input type="submit" class="btn" style="color: #fff;background-color: #dda314;border-radius: 25px;width:100%;margin:auto;" value="Login">
                  </div>
                  </div>
                           
-                 <p>First Time User? <a href="register.php" style="color:#422B69;"><b>Sign up</b></a>.</p>
+                 <p style="text-align:center;">First Time User? <a href="register.php" style="color:#422B69;"><b>Sign up</b></a>.</p>
                  </div>
                  </div>
                  </div>
             </form>
         </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <footer>
-  <p style="color: black;">©2023_hr2eazy</p>
-  <p style="color: black;">Special Project_Training Booking</p><br>
-     </footer>
+    
 </body>
 
 </html>
