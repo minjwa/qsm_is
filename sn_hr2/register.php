@@ -200,21 +200,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font: 20px sans-serif;
+            font-size:14px;
+            background:url('img/bg.jpg')no-repeat;
+            background-size:cover;
         }
 
         .wrapper {
             width: 360px;
             padding: 20px;
         }
-    </style>
 
-    <style>
-    body  {
-
-        background: url('img/people4.jpg') no-repeat; 
-        background-size: cover;
-    }
+        footer {
+            text-align: center;
+            padding: 3px;
+            color: white;
+        }
     </style>
 
 </head>
@@ -227,50 +227,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?> -->
     <div class="container-fluid">
     <div class="row">
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="col-12 mt-5" method="post">
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="col-12" method="post">
             <input type="hidden" name="role_user" id="role_user">
-    <div class="d-flex justify-content-center">
-    <div class="card col-6" style="border-style: solid;background-color: hsla(40, 42%, 62%, 0.7); border-color: #000000; border-radius: 25px;border-width:2px;">
+    <div class="d-flex">
+    <div class="card" style="width:400px;border-left:5px solid #dda314;border-right:5px solid #989896;border-bottom:5px solid #989896;background-color:#fff;border-radius:20px;margin-left:100px;margin-top:3%;">
     <div class="card-body">
-    <div class="d-flex justify-content-center">
-            <img src="img/hr2eazy.png" alt="hr2eazy_logo" class="mx-auto d-block" style="height: 100px;">
-    </div>
+    <div class="d-flex justify-content-center" >
+                     <img src="img/logo.png" alt="hr2eazy_logo" class="mx-auto d-block" style="width:48%;">
+                 </div>
                            
-    <div class="form-group row mt-5">
-        <label class="col-sm-3 col-form-label"><b>Email</b></label>
-    <div class="col-sm-9">
-            <input type="text" name="email" style="border-style: solid; border-width:2px;" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+    <div class="form-group row mt-4">
+        <label class="form-label" style="border:0px solid blue;width:85%;margin:auto;margin-bottom:10px;"><b>Email</b></label>
+    <div style="border:0px solid red;width:85%;margin:auto;">
+            <input type="text" name="email" style="border-radius: 25px;box-shadow:5px 5px 0px 0px #384182;height:100%;" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
         <span class="invalid-feedback"><?php echo $email_err; ?></span>
     </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label"><b>Username</b></label>
-    <div class="col-sm-9">
-            <input type="text" name="username" style="border-style: solid; border-width:2px;" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+        <label class="form-label" style="border:0px solid blue;width:85%;margin:auto;margin-bottom:10px;"><b>Username</b></label>
+    <div style="border:0px solid red;width:85%;margin:auto;">
+            <input type="text" name="username" style="border-radius: 25px;box-shadow:5px 5px 0px 0px #384182;height:100%;" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
         <span class="invalid-feedback"><?php echo $username_err; ?></span>
     </div>
     </div>
                            
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label"><b>Password</b></label>
-    <div class="col-sm-9">
-            <input type="password" name="password" style="border-style: solid; border-width:2px;" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+        <label class="form-label" style="border:0px solid blue;width:85%;margin:auto;margin-bottom:10px;"><b>Password</b></label>
+    <div style="border:0px solid red;width:85%;margin:auto;">
+            <input type="password" name="password" style="border-radius: 25px;box-shadow:5px 5px 0px 0px #384182;height:100%;" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
          <span class="invalid-feedback"><?php echo $password_err; ?></span>
     </div>
     </div>
                             
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label"><b>Repeat Password</b></label>
-    <div class="col-sm-9">
-            <input type="password" name="confirm_password" style="border-style: solid; border-width:2px;" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+        <label class="form-label" style="border:0px solid blue;width:85%;margin:auto;margin-bottom:10px;"><b>Repeat Password:</b></label>
+    <div style="border:0px solid red;width:85%;margin:auto;">
+            <input type="password" name="confirm_password" style="border-radius: 25px;box-shadow:5px 5px 0px 0px #384182;height:100%;" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
         <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
      </div>
      </div>
                            
     <div class="row">
-        <label class="col-sm-3 col-form-label"><b>Role</b></label>
-    <div class="col-sm-9 column mb-4" id="container_roles">
+        <label class="form-label" style="border:0px solid blue;width:85%;margin:auto;margin-bottom:10px;"><b>Role:</b></label>
+    <div class="col-sm-9 column mb-3" id="container_roles" style="margin-left:13px;">
         <?php foreach ($roles as $key => $value_role) {
             if ($value_role['code'] !== 'admin') { ?>
                 <div class="col-sm-4 form-check">
@@ -299,13 +299,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
                             
     <div class="form-group row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-9">
-        <input type="submit" class="btn px-4" value="Submit" style="color: #fff;background-color: #422B69; border-color: #b666d2; border-radius: 25px;">
-        <input type="reset" class="btn btn-secondary ml-2" style="border-radius: 25px;" value="Reset">
+    <div style="margin:auto;width:85%;border:0px solid red;">
+        <div style="margin:auto;">
+        <center>
+        <input type="submit" class="btn" value="Submit" style="color: #fff;background-color: #dda314;border-radius: 25px;width:30%;margin:auto;">
+        <input type="reset" class="btn" style="color: #fff;background-color: #dda314;border-radius: 25px;width:30%;margin:auto;" value="Reset">
+        </center>
+        </div>
     </div>
     </div>
-            <p><b>Already a member? <a href="login.php" style="color:#422B69;"><b>Login here</b></a>.</b></p>
+            <p style="text-align:center;">Already a member? <a href="login.php" style="color:#422B69;"><b>Login here</b></a>.</b></p>
     </div>
     </div>
     </div>
