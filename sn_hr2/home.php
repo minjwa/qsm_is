@@ -228,7 +228,7 @@ if ($link !== false) {
             background:#ffc107;
             color:#fff;
             border:1px solid transparent;
-        }  border:1px solid #fff;
+          border:1px solid #fff;
         }
 
         .table {
@@ -347,9 +347,33 @@ if ($link !== false) {
 
     </div>
 
+    <div class="row bg-white my-4 mx-1 py-3" style="color: #303666; border-radius:10px;">
+        <div class="col">
+            <div class="row">
+                <div class="col text-center" style="font-size: 1.3rem;">
+                    <span>Manual</span>
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-2">
+                    <button type="button" class="btn border bg-primary text-white">Upload Document</button>    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Document 1</h4>
+                            <button type="button" class="btn bg-primary text-white">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="mt-5 text-center" style="font-size: 1.3rem;background:#fff;padding:15px;border-radius:10px;color:#303666;">
-    Applications
-</div>
+        Applications
+    </div>
 
 
 <?php if ($_SESSION['role']['code'] == 'company') { ?>
@@ -648,7 +672,7 @@ if ($link !== false) {
                             </tbody>
                         </table>
 
-                        <button type="submit">Submit Feedback</button>
+                        <button type="submit" style="cursor: pointer">Submit Feedback</button>
                     </form>
                 </div>
             </div>

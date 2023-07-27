@@ -274,7 +274,15 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <td><?php echo ++$x; ?>.</td>
                     <td><?php echo $user['email']; ?></td>
                 <td><?php echo $user['username']; ?></td>
-                    <td><?php echo $user['role']['code']; ?></td>
+                    <td>
+                        <?php
+                            if($user['role']['code'] == "student"){
+                                echo "user";
+                            }else{
+                                echo $user['role']['code']; 
+                            }
+                        ?>
+                    </td>
                         <td>
                                                     
                 <?php if ($user['id'] != $_SESSION["id"]) { ?>
