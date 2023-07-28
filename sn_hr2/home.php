@@ -166,7 +166,14 @@ if ($link !== false) {
             ];
         }
     }
+
+
 }
+
+function filterFilesArray($element) {
+    return !($element === '.' || $element === '..');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -349,25 +356,65 @@ if ($link !== false) {
 
     <div class="row bg-white my-4 mx-1 py-3" style="color: #303666; border-radius:10px;">
         <div class="col">
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col text-center" style="font-size: 1.3rem;">
                     <span>Manual</span>
                 </div>
             </div>
-            <div class="row justify-content-end">
-                <div class="col-2">
-                    <button type="button" class="btn border bg-primary text-white">Upload Document</button>    
+            <?php
+                if ($_SESSION['role']['code'] == 'company'){
+            ?>
+            <div class="row mb-4">
+                <div class="col">
+                    <form action="upload_manual.php" method="POST" enctype="multipart/form-data">
+                        <div class="row justify-content-end">
+                            <div class="col-5 d-flex justify-content-end">
+                                <input type="file" name="document" class="form-control" style="width:50%;">
+                            </div>
+                            <div class="col-2">
+                                <button type="submit" class="btn border bg-primary text-white">Upload Document</button>    
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
+            <?php }?>
             <div class="row">
-                <div class="col-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Document 1</h4>
-                            <button type="button" class="btn bg-primary text-white">Download</a>
-                        </div>
-                    </div>
-                </div>
+                    <?php
+                        $folderPath = "uploads/manual/";
+                        $files = scandir($folderPath);
+
+                        $filterFiles = array_filter($files, 'filterFilesArray');
+
+                        if(sizeof($filterFiles) == 0){
+                            echo '<div class="col text-center">
+                                    <span>No Manual for now</span>
+                                </div>';
+
+                        }else {
+                            foreach($filterFiles as $file){
+                                $filePath = $folderPath . $file;
+                                
+                                echo '
+                                <div class="col-2">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <span class="mb-2">' . $file . '</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="download_manual.php?file=' . $file . '" target="_blank">
+                                            <button type="button" class="btn bg-primary text-white">
+                                                Download
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                ';
+                            }
+                        }
+
+                    ?>
             </div>
         </div>
     </div>
