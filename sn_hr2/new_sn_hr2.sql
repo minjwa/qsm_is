@@ -328,7 +328,7 @@ ALTER TABLE `users`
 -- Constraints for table `applications`
 --
 ALTER TABLE `applications`
-  ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
   ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `applications_ibfk_3` FOREIGN KEY (`description`) REFERENCES `description` (`id`);
 
@@ -342,7 +342,7 @@ ALTER TABLE `document`
 -- Constraints for table `jobs`
 --
 ALTER TABLE `jobs`
-  ADD CONSTRAINT `jobs_description_fk` FOREIGN KEY (`description`) REFERENCES `description` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `jobs_description_fk` FOREIGN KEY (`description`) REFERENCES `description` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
   ADD CONSTRAINT `jobs_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`),
   ADD CONSTRAINT `jobs_user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 

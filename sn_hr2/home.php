@@ -597,7 +597,7 @@ function filterFilesArray($element) {
                         </div>
 
                         <div class="col-md-2">
-                                <button type="submit" class="btn" style="margin-right:40%;float:right;">Upload</button>
+                                <button type="submit" class="btn bg-primary text-white" style="margin-right:40%;float:right;">Upload</button>
                         </div>
                     </div>
                 </form>
